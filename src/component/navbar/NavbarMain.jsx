@@ -1,6 +1,6 @@
 import React from "react";
 import NavbarLogo from "./NavbarLogo";
-import NavBarLinks from "./NavBarLinks";
+import NavbarLinks from "./NavbarLinks";
 import NavbarButton from "./NavbarButton";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
