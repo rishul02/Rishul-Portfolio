@@ -42,7 +42,7 @@ const Hero = () => {
         </motion.a>
       </div>
 
-      {/* Social Links with Same Hover Effect */}
+      {/* Social Links */}
       <div className="mt-6 flex gap-4">
         {[
           { href: "https://github.com/rishul02", icon: <FaGithub size={30} /> },

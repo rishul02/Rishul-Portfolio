@@ -9,7 +9,6 @@ import FooterMain from "./component/footer/FooterMain";
 function App() {
   return (
     <main className="relative font-body ">
-      {/* Fullscreen Background Video */}
       <video
         autoPlay
         loop
