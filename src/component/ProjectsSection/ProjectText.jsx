@@ -9,7 +9,7 @@ const ProjectText = () => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0 }}
-      className="flex flex-col items-center mt-[100px] lg:mt-[160px] md:mt-[120px] sm:mt-16 "
+      className="flex flex-col items-center  "
     >
       <h2 className="text-6xl text-cyan mb-16">Projects</h2>
       <p></p>

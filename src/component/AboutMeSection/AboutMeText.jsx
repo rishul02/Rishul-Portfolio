@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutMeText = () => {
   return (
-    <div className="flex flex-col md:items-start sm:items-center sm:text-center md:text-left">
+    <div className="flex flex-col sm:items-center sm:text-center md:text-left">
       <h2 className="text-6xl text-cyan mb-10">About Me</h2>
       <p className="text-white">
         I'm Rishul, an AI and software development enthusiast with a strong

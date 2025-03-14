@@ -1,29 +1,32 @@
 import HeroMain from "./component/heroSection/HeroMain";
 import NavbarMain from "./component/navbar/NavbarMain";
-import HeroGradient from "./component/heroSection/HeroGradient";
-import SubheroSection from "./component/heroSection/SubheroSection";
 import AboutMeMain from "./component/AboutMeSection/AboutMeMain";
-import HelperSection from "./component/HelperSection";
 import SkillMain from "./component/SkillSection/SkillMain";
-import Subskill from "./component/SkillSection/Subskill";
 import ProjectMain from "./component/ProjectsSection/ProjectMain";
 import ContactMeMain from "./component/ContactMeSection/ContactMeMain";
 import FooterMain from "./component/footer/FooterMain";
 
 function App() {
   return (
-    <main className="font-body">
+    <main className="relative font-body ">
+      {/* Fullscreen Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed top-0 left-0 w-full h-full object-cover -z-10"
+      >
+        <source src="/videos/bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <NavbarMain />
       <HeroMain />
-      <HeroGradient />
-      <SubheroSection />
       <AboutMeMain />
       <SkillMain />
-      <Subskill />
       <ProjectMain />
       <ContactMeMain />
       <FooterMain />
-      <HelperSection />
     </main>
   );
 }

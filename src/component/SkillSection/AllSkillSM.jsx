@@ -47,10 +47,6 @@ const skills = [
     icon: SiMongodb,
   },
   {
-    skill: "DotNet",
-    icon: AiOutlineDotNet,
-  },
-  {
     skill: "PyTorch",
     icon: SiPytorch,
   },

@@ -10,3 +10,11 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.active-link {
+  color: #06b6d4; /* Cyan text */
+}
+
+.active-link + div {
+  width: 100% !important; /* Full underline when active */
+}
