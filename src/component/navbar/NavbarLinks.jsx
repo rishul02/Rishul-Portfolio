@@ -11,7 +11,7 @@ const links = [
 
 const NavBarLinks = () => {
   return (
-    <ul className="flex flex-row flex-wrap gap-4 text-white font-bold text-center justify-center items-center w-full">
+    <ul className="flex flex-row gap-2 sm:gap-4 md:gap-6 text-white font-bold text-center justify-center items-center w-full">
       {links.map((link, index) => (
         <li key={index} className="relative group">
           <Link
@@ -22,7 +22,7 @@ const NavBarLinks = () => {
             offset={-130}
             activeClass="active-link"
             className="cursor-pointer text-white hover:text-cyan transition-all duration-500 
-            text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl"
+            text-[12px] sm:text-[14px] md:text-[16px] leading-none"
           >
             {link.link}
           </Link>
