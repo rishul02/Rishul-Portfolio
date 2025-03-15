@@ -11,7 +11,7 @@ const links = [
 
 const NavBarLinks = () => {
   return (
-    <ul className="flex flex-row gap-2 sm:gap-4 md:gap-6 text-white font-bold text-center justify-center items-center w-full">
+    <ul className="flex flex-row gap-2 sm:gap-2 md:gap-6 text-white font-bold text-center justify-center items-center w-full">
       {links.map((link, index) => (
         <li key={index} className="relative group">
           <Link
