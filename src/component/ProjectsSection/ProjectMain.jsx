@@ -12,6 +12,13 @@ const projects = [
     image: "../../images/website-img-3.png",
     link: "https://github.com/rishul02/wasserstoff-AiInternTask",
   },
+  {
+    name: "Gen-Vision: Text to Image Generator",
+    year: "March 2025",
+    align: "right",
+    image: "../../images/sample_img_1.jpg",
+    link: "hhttps://gen-vision.netlify.app/",
+  },
 ];
 
 const ProjectMain = () => {

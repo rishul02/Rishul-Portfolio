@@ -8,7 +8,6 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { FaPython } from "react-icons/fa";
 import { FaJava } from "react-icons/fa";
 import { SiMongodb } from "react-icons/si";
-import { AiOutlineDotNet } from "react-icons/ai";
 import { SiPytorch } from "react-icons/si";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../FramerMotion/variants";
