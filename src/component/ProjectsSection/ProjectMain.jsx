@@ -10,14 +10,16 @@ const projects = [
     year: "Dec 2024",
     align: "right",
     image: "../../images/website-img-3.png",
+
     link: "https://github.com/rishul02/wasserstoff-AiInternTask",
   },
   {
     name: "Gen-Vision: Text to Image Generator",
     year: "March 2025",
-    align: "right",
+    align: "left",
+
     image: "../../images/sample_img_1.jpg",
-    link: "hhttps://gen-vision.netlify.app/",
+    link: "https://gen-vision.netlify.app/",
   },
 ];
 
@@ -29,7 +31,7 @@ const ProjectMain = () => {
           variants={fadeIn("down", 0.2)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: false, amount: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
         >
           <ProjectText />
         </motion.div>
