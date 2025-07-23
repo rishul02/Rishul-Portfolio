@@ -1,80 +1,82 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [clicked, setClicked] = useState(false)
-  const [linkHovered, setLinkHovered] = useState(false)
-  const [hidden, setHidden] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [clicked, setClicked] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const mobileCheck = () => {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    }
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+    };
 
     if (mobileCheck()) {
-      setHidden(true)
-      return
+      setHidden(true);
+      return;
     }
 
     const addEventListeners = () => {
-      document.addEventListener("mousemove", onMouseMove)
-      document.addEventListener("mouseenter", onMouseEnter)
-      document.addEventListener("mouseleave", onMouseLeave)
-      document.addEventListener("mousedown", onMouseDown)
-      document.addEventListener("mouseup", onMouseUp)
-    }
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseenter", onMouseEnter);
+      document.addEventListener("mouseleave", onMouseLeave);
+      document.addEventListener("mousedown", onMouseDown);
+      document.addEventListener("mouseup", onMouseUp);
+    };
 
     const removeEventListeners = () => {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseenter", onMouseEnter)
-      document.removeEventListener("mouseleave", onMouseLeave)
-      document.removeEventListener("mousedown", onMouseDown)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
 
     const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY })
-    }
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
 
     const onMouseDown = () => {
-      setClicked(true)
-    }
+      setClicked(true);
+    };
 
     const onMouseUp = () => {
-      setClicked(false)
-    }
+      setClicked(false);
+    };
 
     const onMouseLeave = () => {
-      setHidden(true)
-    }
+      setHidden(true);
+    };
 
     const onMouseEnter = () => {
-      setHidden(false)
-    }
+      setHidden(false);
+    };
 
     const handleLinkHoverEvents = () => {
       document
         .querySelectorAll(
-          "a, button, [role='button'], input, textarea, select, details, [tabindex]:not([tabindex='-1'])",
+          "a, button, [role='button'], input, textarea, select, details, [tabindex]:not([tabindex='-1'])"
         )
         .forEach((el) => {
-          el.addEventListener("mouseenter", () => setLinkHovered(true))
-          el.addEventListener("mouseleave", () => setLinkHovered(false))
-        })
-    }
+          el.addEventListener("mouseenter", () => setLinkHovered(true));
+          el.addEventListener("mouseleave", () => setLinkHovered(false));
+        });
+    };
 
-    addEventListeners()
-    handleLinkHoverEvents()
+    addEventListeners();
+    handleLinkHoverEvents();
 
     return () => {
-      removeEventListeners()
-    }
-  }, [])
+      removeEventListeners();
+    };
+  }, []);
 
-  if (hidden) return null
+  if (hidden) return null;
 
   return (
     <div className="custom-cursor">
@@ -92,12 +94,22 @@ export function CustomCursor() {
           mass: 0.5,
         }}
       >
-        <svg width={linkHovered ? 32 : 8} height={linkHovered ? 32 : 8} viewBox="0 0 20 20">
+        <svg
+          width={linkHovered ? 32 : 8}
+          height={linkHovered ? 32 : 8}
+          viewBox="0 0 20 20"
+        >
           <motion.circle
             cx="10"
             cy="10"
             r="5"
-            fill={clicked ? "#FF0080" : linkHovered ? "rgba(255, 0, 128, 0.5)" : "#7928CA"}
+            fill={
+              clicked
+                ? "#FF0080"
+                : linkHovered
+                  ? "rgba(255, 0, 128, 0.5)"
+                  : "#7928CA"
+            }
             animate={{
               opacity: clicked ? 0.5 : 1,
             }}
@@ -132,5 +144,5 @@ export function CustomCursor() {
         </svg>
       </motion.div>
     </div>
-  )
+  );
 }

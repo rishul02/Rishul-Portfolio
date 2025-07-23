@@ -1,42 +1,45 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export function AnimatedCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovering, setIsHovering] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth < 768) return
+    if (typeof window === "undefined" || window.innerWidth < 768) return;
 
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-      setIsVisible(true)
-    }
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
+    };
 
-    const handleMouseEnter = () => setIsHovering(true)
-    const handleMouseLeave = () => setIsHovering(false)
+    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
 
-    document.addEventListener("mousemove", updateMousePosition)
+    document.addEventListener("mousemove", updateMousePosition);
 
-    const interactiveElements = document.querySelectorAll("button, a, [role='button'], input, textarea")
+    const interactiveElements = document.querySelectorAll(
+      "button, a, [role='button'], input, textarea"
+    );
     interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter)
-      el.addEventListener("mouseleave", handleMouseLeave)
-    })
+      el.addEventListener("mouseenter", handleMouseEnter);
+      el.addEventListener("mouseleave", handleMouseLeave);
+    });
 
     return () => {
-      document.removeEventListener("mousemove", updateMousePosition)
+      document.removeEventListener("mousemove", updateMousePosition);
       interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter)
-        el.removeEventListener("mouseleave", handleMouseLeave)
-      })
-    }
-  }, [])
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+  }, []);
 
-  if (!isVisible || (typeof window !== "undefined" && window.innerWidth < 768)) return null
+  if (!isVisible || (typeof window !== "undefined" && window.innerWidth < 768))
+    return null;
 
   return (
     <>
@@ -60,5 +63,5 @@ export function AnimatedCursor() {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       />
     </>
-  )
+  );
 }

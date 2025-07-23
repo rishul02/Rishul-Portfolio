@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 
-emailjs.init(process.env.PUBLIC_EMAILJS_PUBLIC_KEY!);
+emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -45,8 +45,8 @@ export function ContactForm() {
     try {
       // Replace mock delay with actual EmailJS sending
       const result = await emailjs.send(
-        process.env.PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.PUBLIC_EMAILJS_TEMPLATE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           from_name: formData.name,
           from_email: formData.email,

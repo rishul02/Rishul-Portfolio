@@ -1,65 +1,68 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion, useMotionValue, useSpring } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function SmoothCursor() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
-  const [cursorText, setCursorText] = useState("")
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [cursorText, setCursorText] = useState("");
 
-  const cursorX = useMotionValue(0)
-  const cursorY = useMotionValue(0)
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
 
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 }
-  const cursorXSpring = useSpring(cursorX, springConfig)
-  const cursorYSpring = useSpring(cursorY, springConfig)
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth < 768) return
+    if (typeof window === "undefined" || window.innerWidth < 768) return;
 
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX)
-      cursorY.set(e.clientY)
-      setIsVisible(true)
-    }
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+      setIsVisible(true);
+    };
 
     const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      setIsHovering(true)
+      const target = e.target as HTMLElement;
+      setIsHovering(true);
 
       if (target.dataset.cursorText) {
-        setCursorText(target.dataset.cursorText)
+        setCursorText(target.dataset.cursorText);
       } else if (target.tagName === "A") {
-        setCursorText("View")
+        setCursorText("View");
       } else if (target.tagName === "BUTTON") {
-        setCursorText("Click")
+        setCursorText("Click");
       }
-    }
+    };
 
     const handleMouseLeave = () => {
-      setIsHovering(false)
-      setCursorText("")
-    }
+      setIsHovering(false);
+      setCursorText("");
+    };
 
-    document.addEventListener("mousemove", moveCursor)
+    document.addEventListener("mousemove", moveCursor);
 
-    const interactiveElements = document.querySelectorAll("a, button, [data-cursor]")
+    const interactiveElements = document.querySelectorAll(
+      "a, button, [data-cursor]"
+    );
     interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter)
-      el.addEventListener("mouseleave", handleMouseLeave)
-    })
+      el.addEventListener("mouseenter", handleMouseEnter);
+      el.addEventListener("mouseleave", handleMouseLeave);
+    });
 
     return () => {
-      document.removeEventListener("mousemove", moveCursor)
+      document.removeEventListener("mousemove", moveCursor);
       interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter)
-        el.removeEventListener("mouseleave", handleMouseLeave)
-      })
-    }
-  }, [cursorX, cursorY])
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+  }, [cursorX, cursorY]);
 
-  if (!isVisible || (typeof window !== "undefined" && window.innerWidth < 768)) return null
+  if (!isVisible || (typeof window !== "undefined" && window.innerWidth < 768))
+    return null;
 
   return (
     <>
@@ -110,5 +113,5 @@ export function SmoothCursor() {
         </motion.div>
       </motion.div>
     </>
-  )
+  );
 }

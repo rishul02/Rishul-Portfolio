@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Code, Brain, Database, Globe, Cpu, Terminal } from "lucide-react";
+import {
+  Code,
+  Brain,
+  Database,
+  Globe,
+  Cpu,
+  Terminal,
+  Download,
+} from "lucide-react";
 import { useScroll, useTransform } from "framer-motion";
 import { SmoothLoading } from "@/components/smooth-loading";
 import { SmoothCursor } from "@/components/smooth-cursor";
@@ -21,6 +29,9 @@ export default function Portfolio() {
 
   const { scrollYProgress } = useScroll();
   const progressBar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const CV_DOWNLOAD_URL =
+    "https://drive.google.com/file/d/1e9-63ttT06MQjJqS0J0gar_pKmgb82A8/view?usp=drivesdk";
 
   const handleScroll = useCallback(() => {
     const sections = ["home", "about", "work", "contact"];
@@ -48,6 +59,11 @@ export default function Portfolio() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleDownloadCV = () => {
+    window.open(CV_DOWNLOAD_URL, "_blank");
+    console.log("CV download initiated");
   };
 
   const skillCategories = [
@@ -248,9 +264,29 @@ export default function Portfolio() {
         scrollToSection={scrollToSection}
       />
 
+      <button
+        onClick={handleDownloadCV}
+        className="fixed top-6 right-6 z-50 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium text-sm backdrop-blur-sm border border-white/10 hover:scale-105 lg:hidden"
+        data-cursor-text="Download"
+      >
+        <Download className="w-4 h-4" />
+        Download CV
+      </button>
+
       <main className="relative z-10">
         <section id="home">
           <HeroSection scrollToSection={scrollToSection} />
+
+          <div className="hidden lg:flex justify-center -mt-36">
+            <button
+              onClick={handleDownloadCV}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 font-medium text-base backdrop-blur-sm border border-white/10 hover:scale-105"
+              data-cursor-text="Download"
+            >
+              <Download className="w-5 h-5" />
+              Download CV
+            </button>
+          </div>
         </section>
 
         <section id="about">
