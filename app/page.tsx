@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Code,
   Brain,
@@ -26,6 +26,7 @@ import { ContactForm } from "@/components/contact-form";
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const { scrollYProgress } = useScroll();
   const progressBar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -33,38 +34,62 @@ export default function Portfolio() {
   const CV_DOWNLOAD_URL =
     "https://drive.google.com/file/d/1e9-63ttT06MQjJqS0J0gar_pKmgb82A8/view?usp=drivesdk";
 
-  const handleScroll = useCallback(() => {
+  // Optimized section tracking with Intersection Observer
+  useEffect(() => {
     const sections = ["home", "about", "work", "contact"];
-    const currentSection = sections.find((section) => {
-      const element = document.getElementById(section);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom >= 100;
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      // Find the section with the largest intersection ratio
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length > 0) {
+        const mostVisible = visibleSections[0];
+        const sectionId = mostVisible.target.id;
+        if (sections.includes(sectionId)) {
+          setActiveSection(sectionId);
+        }
       }
-      return false;
+    };
+
+    // Create observer with optimized options
+    observerRef.current = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: "-20% 0px -80% 0px", // Trigger when section is 20% visible from top
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], // Multiple thresholds for better accuracy
     });
 
-    if (currentSection) {
-      setActiveSection(currentSection);
+    // Observe all sections
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element && observerRef.current) {
+        observerRef.current.observe(element);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const scrollToSection = useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
     }
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleDownloadCV = () => {
+  const handleDownloadCV = useCallback(() => {
     window.open(CV_DOWNLOAD_URL, "_blank");
     console.log("CV download initiated");
-  };
+  }, [CV_DOWNLOAD_URL]);
 
   const skillCategories = [
     {
@@ -277,7 +302,7 @@ export default function Portfolio() {
         <section id="home">
           <HeroSection scrollToSection={scrollToSection} />
 
-          <div className="hidden lg:flex justify-center -mt-36">
+          <div className="hidden lg:flex justify-center">
             <button
               onClick={handleDownloadCV}
               className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 font-medium text-base backdrop-blur-sm border border-white/10 hover:scale-105"
